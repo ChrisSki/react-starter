@@ -13,7 +13,7 @@ gulp.task('sync', function () {
     server: {
       baseDir: './'
     }
-  })
+  });
 });
 
 gulp.task('browserify', function(){
@@ -22,7 +22,8 @@ gulp.task('browserify', function(){
   b.add('./index.js');
   return b.bundle()
     .pipe(source('main.js'))
-    .pipe(gulp.dest('./dist'));
+    .pipe(gulp.dest('./dist'))
+    .pipe(browserSync.reload({stream: true}));
 });
 
 gulp.task('css', function () {
@@ -45,4 +46,3 @@ gulp.task('run', ['browserify', 'css', 'sync'], function () {
   gulp.watch('./src/js/*.jsx', ['browserify']);
   gulp.watch('./src/scss/*.scss', ['css']);
 });
-
